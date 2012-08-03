@@ -1,0 +1,5 @@
+
+        [ckan.plugins]
+	    datadaemon=ckanext.datadaemon.plugin:datadaemonPlugin
+
+	
