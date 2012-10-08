@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:lb="http://rdf.lightbase.cc/ontology/">
+<lb:registro rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave">
+<lb:base rdf:resource="http://rdf.lightbase.cc/pareceres/PARECER"/>
+<lb:baseName>PARECER</lb:baseName>
+<dc:title xml:lang="pt-br">Pareceres</dc:title>
+<dc:description>Base de Pareceres</dc:description>
+<dc:identifier>162012</dc:identifier>
+<lb:arquivo rdf:resource="F:\lightbase\contents\gd_atos_e_peticoes\parecer\162012_215A_arquivo.doc" />
+<lb:fields rdf:parseType="Collection">
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#orgao">
+<lb:fieldName>orgao</lb:fieldName>
+<dc:title xml:lang="pt-br">Órgão</dc:title>
+<dc:description xml:lang="pt-br">PGFN/CAT</dc:description>
+<lb:fieldType>ALFANUMERICO</lb:fieldType>
+<lb:fieldIndex>PORCAMPO | TEXTUAL</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#docorigem">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>docorigem</lb:fieldName>
+<dc:title xml:lang="pt-br">Documento Origem</dc:title>
+<dc:description xml:lang="pt-br">6885/2011</dc:description>
+<lb:fieldType>ALFANUMERICO</lb:fieldType>
+<lb:fieldIndex>PORCAMPO | TEXTUAL</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#data">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>data</lb:fieldName>
+<dc:title xml:lang="pt-br">Data</dc:title>
+<dc:description xml:lang="pt-br">04/01/2012</dc:description>
+<lb:fieldType>DATA</lb:fieldType>
+<lb:fieldIndex>PORCAMPO</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#procurador">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>procurador</lb:fieldName>
+<dc:title xml:lang="pt-br">Procurador</dc:title>
+<dc:description xml:lang="pt-br">ROBERTO DOMINGOS DA MOTA</dc:description>
+<lb:fieldType>ALFANUMERICO</lb:fieldType>
+<lb:fieldIndex>PORCAMPO | TEXTUAL</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#parecer">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>parecer</lb:fieldName>
+<dc:title xml:lang="pt-br">Parecer</dc:title>
+<dc:description xml:lang="pt-br">P A R E C E R
+PGFN/CAT/Nº 16/2012
+
+
+
+
+Sigilo fiscal. Informações contidas nos extratos de  Declaração de Operações  Imobiliárias - DOI. Possibilidade de juntada nos processos judiciais sem a decretação de segredo de justiça. Proposta de Consulta Interna PRFN-4 nº 6, de 20 de outubro de 2011. 
+
+
+
+
+ A Procuradoria-Regional da Fazenda Nacional (PRFN) da 4ª região submete ao exame desta Procuradoria-Geral da Fazenda Nacional a Consulta Interna PRFN-4, de 20 de outubro de 2011 a respeito da necessidade de se requerer segredo de justiça nos processos em que forem juntados os extratos das Declarações de Operação Imobiliária - DOI.  
+
+2. A dúvida foi suscitada pela PFN/PR, após a edição da MP nº 507/2010, que passou a proteger todas as informações econômico-financeiras dos contribuintes, inclusive as que revelassem negócios e valores de compra e venda. Desse modo, a questão foi trazida pela primeira vez ao crivo desta Procuradoria-Geral que se pronunciou através da Nota PGFN/CRJ nº 363/2011 que assim concluiu:
+
+ (...)
+
+ "5. Todavia, a Medida Provisória nº 507/2010 perdeu a eficácia no dia 15 de março do corrente ano ao não ser convertida em lei no prazo constitucionalmente estabelecido, o que faz com que o presente expediente, salvo melhor juízo, tenha perdido o objeto.
+
+ 6.  Ainda que se entenda que o presente expediente não tenha perdido o objeto, a orientação geral a respeito do sigilo fiscal é de competência da Coordenação-Geral de Assuntos Tributários (CAT/PGFN), nos moldes do que dispõe o artigo 21 do Regimento Interno da Procuradoria-Geral da Fazenda Nacional"
+
+
+
+
+
+
+
+Entretanto, pela elevada importância do tema, a PRFN/4 reiterou que a consulta no sentido de obter uma análise de mérito, visto que, não obstante a relatada perda de eficácia da MP nº 507/2010, ainda restavam dúvidas sobre a existência de sigilo fiscal das informações contidas no DOI, a ponto de obrigatoriedade de cumprimento da Portaria PGFN nº 1080, de 16 de julho de 2009, que assim dispõe :
+
+
+ 
+
+
+4.  As duas unidades descentralizadas da PGFN entenderam que as informações extraídas da Declaração de Operações Imobiliárias não estão protegidas pelo manto sagrado do sigilo fiscal e portanto podem ser juntadas pelos Procuradores da Fazenda Nacional nos autos dos processos judiciais sempre que se fizer imprescindível à cobrança da dívida ativa da União ou mesmo nos casos de sua defesa em juízo.
+ 
+5.  Em primeiro plano, verificamos que o DOI é disciplinado pela Lei nº 10.426, de 24 de abril de 2002, em seu art. 8º que por oportuno transcrevemos :
+
+  "Art. 8o  Os serventuários da Justiça deverão informar as operações imobiliárias anotadas, averbadas, lavradas, matriculadas ou registradas nos Cartórios de Notas ou de Registro de Imóveis, Títulos e Documentos sob sua responsabilidade, mediante a apresentação de Declaração sobre Operações Imobiliárias (DOI), em meio magnético, nos termos estabelecidos pela Secretaria da Receita Federal."
+
+
+Também cumpre registrar o comando do art. 17 da Lei nº 6.015 de 31 de dezembro de 1973 assim disposto :
+
+"Art. 17. Qualquer pessoa pode requerer certidão do registro sem informar ao oficial ou ao funcionário o motivo ou interesse do pedido."
+
+
+
+
+
+
+6.  Importante pontuar que em tempos de disseminação, por vezes indiscriminada de um volume gigantesco de informações pessoais o tema aqui tratado recebe contornos dramáticos e tormentosos. A tendência inicial de todo operador do direito é trilhar o caminho mais "seguro" optando pela interpretação de que toda e qualquer informação fiscal ou patrimonial estaria acobertada pelo poderoso cobertor do sigilo fiscal. Provavelmente, isto acontece em razão de uma interpretação apressada e questionável, do comando do art. 1981 do Código Tributário Nacional. Acaba-se utilizando uma hermenêutica deveras ampliativa do referido dispositivo, olvidando-se, porém, de se fazer o devido cotejamento sistemático com outras normas da atual ordem jurídica. Por conta disso, este  assunto apresenta raríssimos tratamentos doutrinários e até jurisprudenciais.
+
+
+7 Nessa quadra, torna-se óbvio que aflora nitidamente um choque entre princípios constitucionais bastante invocados nos debates jurídicos, vale dizer, o princípio da publicidade, esculpido nos arts. 5º, inciso XXXIII e 37 da Magna Carta e o da inviolabilidade da intimidade e da vida privada, acolhidos no art. 5º, inciso X, da Constituição Federal.
+
+8. Todavia, entendemos que a própria Constituição cidadã acaba por dirimir o aparente conflito de princípios acima delineado. Tratam-se de dois dispositivos, sendo que o primeiro está contido no festejado art. 5º,  inciso LX, que pela sua clareza pedagógica colacionamos a seguir :
+
+ "A lei só poderá restringir a publicidade dos atos processuais quando a defesa da intimidade ou o interesse social o exigirem."
+
+Já o segundo lastreia-se no art. 145, § 1º :
+
+ "§ 1º - Sempre que possível, os impostos terão caráter pessoal e serão graduados segundo a capacidade econômica do contribuinte, facultado à administração tributária, especialmente para conferir efetividade a esses objetivos, identificar, respeitados os direitos individuais e nos termos da lei, o patrimônio, os rendimentos e as atividades econômicas do contribuinte."
+ Grifo nosso
+__________________________
+
+1     CTN- Art. 198. Sem prejuízo do disposto na legislação criminal, é vedada a divulgação, por parte da Fazenda Pública ou de seus servidores, de informação obtida em razão do ofício sobre a situação econômica ou financeira do sujeito passivo ou de terceiros e sobre a natureza e o estado de seus negócios ou atividades. (Redação dada pela Lcp nº 104, de 10.1.2001)
+        § 1o Excetuam-se do disposto neste artigo, além dos casos previstos no art. 199, os seguintes:   (Redação dada pela Lcp nº 104, de 10.1.2001)
+         I - requisição de autoridade judiciária no interesse da justiça;  (Incluído pela Lcp nº 104, de 10.1.2001)
+        II - solicitações de autoridade administrativa no interesse da Administração Pública, desde que seja comprovada a instauração regular de processo administrativo, no órgão ou na entidade respectiva, com o objetivo de investigar o sujeito passivo a que se refere a informação, por prática de infração administrativa. (Incluído pela Lcp nº 104, de 10.1.2001)
+        § 2o O intercâmbio de informação sigilosa, no âmbito da Administração Pública, será realizado mediante processo regularmente instaurado, e a entrega será feita pessoalmente à autoridade solicitante, mediante recibo, que formalize a transferência e assegure a preservação do sigilo. (Incluído pela Lcp nº 104, de 10.1.2001)
+        § 3o Não é vedada a divulgação de informações relativas a: (Incluído pela Lcp nº 104, de 10.1.2001)
+        I - representações fiscais para fins penais; (Incluído pela Lcp nº 104, de 10.1.2001)
+        II - inscrições na Dívida Ativa da Fazenda Pública; (Incluído pela Lcp nº 104, de 10.1.2001)
+        III - parcelamento ou moratória. (Incluído pela Lcp nº 104, de 10.1.2001)
+
+
+
+
+9. Ora, se a Lei, em estrito cumprimento aos ditames constitucionais, estabeleceu que a compra e venda de imóveis deve ser ampla e compulsoriamente divulgada pelos Cartórios de Notas ou  de registros de imóveis, como demonstrado no item 5 supra, seria totalmente contraditório chegar-se à conclusão que tais informações estariam protegidas pelo sigilo fiscal. 
+10. Desta forma, opina-se pelo acerto, tanto em termos de legitimidade como, e sobretudo, de juridicidade e constitucionalidade da solução apresentada pela Procuradoria-Regional da Fazenda Nacional da 4ª Região, no sentido de não haver sigilo fiscal das informações constantes na Declaração de Operações Imobiliárias e que não há, portanto nenhum óbice à juntada dos respectivos extratos nos autos dos processos judiciais de interesse da União.
+
+À consideração superior.
+COORDENAÇÃO-GERAL DE ASSUNTOS TRIBUTÁRIOS, em 03 de janeiro de 2012
+
+
+ROBERTO D. MOTA
+                                 Procurador da Fazenda Nacional
+
+De acordo, encaminhe ao Procurador-Geral da Fazenda nacional substituto
+COORDENAÇÃO-GERAL DE ASSUNTOS TRIBUTÁRIOS, em 03 de janeiro de 2012
+
+
+RONALDO AFFONSO NUNES LOPES BAPTISTA
+Procurador-Geral Adjunto de Consultoria e Contencioso Tributário substituto
+
+
+ Aprovo. Dê-se conhecimento à Procuradoria-Regional da Fazenda Nacional da 4ª Região
+ PROCURADORIA-GERAL DA FAZENDA NACIONAL, em 4 de Janeiro de 2012.
+
+
+FABRÍCIO DA SOLLER
+         Procurador-Geral da Fazenda Nacional substituto
+
+
+
+Registro nº 6885/2011
+Parecer sigilo DOI
+</dc:description>
+<lb:fieldType>DOCUMENTO</lb:fieldType>
+<lb:fieldIndex>TEXTUAL</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#obs">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>obs</lb:fieldName>
+<dc:title xml:lang="pt-br">Observações</dc:title>
+<dc:description xml:lang="pt-br"></dc:description>
+<lb:fieldType>DOCUMENTO</lb:fieldType>
+<lb:fieldIndex>TEXTUAL</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#nparecer_ano">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>nparecer_ano</lb:fieldName>
+<dc:title xml:lang="pt-br">Nº Parecer/Ano</dc:title>
+<dc:description xml:lang="pt-br">0000016/2012</dc:description>
+<lb:fieldType>ALFANUMERICO</lb:fieldType>
+<lb:fieldIndex>PORCAMPO | CHAVEUNICA</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#nparecer">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>nparecer</lb:fieldName>
+<dc:title xml:lang="pt-br">Numero do Parecer'</dc:title>
+<dc:description xml:lang="pt-br">16</dc:description>
+<lb:fieldType>INTEIRO</lb:fieldType>
+<lb:fieldIndex>PORCAMPO</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#ano">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>ano</lb:fieldName>
+<dc:title xml:lang="pt-br">Ano do Parecer</dc:title>
+<dc:description xml:lang="pt-br">2012</dc:description>
+<lb:fieldType>ALFANUMERICO</lb:fieldType>
+<lb:fieldIndex>TEXTUAL</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#USUARIO">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>USUARIO</lb:fieldName>
+<dc:title xml:lang="pt-br">Usuario Atualização - Protocolo</dc:title>
+<dc:description xml:lang="pt-br">CHAGAS</dc:description>
+<lb:fieldType>ALFANUMERICO</lb:fieldType>
+<lb:fieldIndex>TEXTUAL</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#DT_ATUAL">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>DT_ATUAL</lb:fieldName>
+<dc:title xml:lang="pt-br">Data Atualização - Protocolo</dc:title>
+<dc:description xml:lang="pt-br">04/01/2012</dc:description>
+<lb:fieldType>DATA</lb:fieldType>
+<lb:fieldIndex>PORCAMPO</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#USUARIO2">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>USUARIO2</lb:fieldName>
+<dc:title xml:lang="pt-br">Usuario Atualização - Parecer</dc:title>
+<dc:description xml:lang="pt-br">ANEZIOB</dc:description>
+<lb:fieldType>ALFANUMERICO</lb:fieldType>
+<lb:fieldIndex>TEXTUAL</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#DT_ATUAL2">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>DT_ATUAL2</lb:fieldName>
+<dc:title xml:lang="pt-br">Data Atualização - Parecer</dc:title>
+<dc:description xml:lang="pt-br">09/01/2012</dc:description>
+<lb:fieldType>DATA</lb:fieldType>
+<lb:fieldIndex>PORCAMPO</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#status">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>status</lb:fieldName>
+<dc:title xml:lang="pt-br">Situacão</dc:title>
+<dc:description xml:lang="pt-br">VIGENTE</dc:description>
+<lb:fieldType>ALFANUMERICO</lb:fieldType>
+<lb:fieldIndex>PORCAMPO</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#word">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>word</lb:fieldName>
+<dc:title xml:lang="pt-br">Parecer na Integra</dc:title>
+<dc:description xml:lang="pt-br"></dc:description>
+<lb:fieldType>WORD</lb:fieldType>
+<lb:fieldIndex></lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#ementa">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>ementa</lb:fieldName>
+<dc:title xml:lang="pt-br">Texto de Ementa</dc:title>
+<dc:description xml:lang="pt-br">Sigilo fiscal. Informações contidas nos extratos de Declaração de Operações Imobiliárias - DOI.  Possibilidade de juntada nos processos judiciais sem a decretação de segredo de justiça.  Proposta de Consulta Interna PRFN/4ª Região nº 6, de 20 de outubro de 2011.</dc:description>
+<lb:fieldType>DOCUMENTO</lb:fieldType>
+<lb:fieldIndex>TEXTUAL</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#chave">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>chave</lb:fieldName>
+<dc:title xml:lang="pt-br">Chave</dc:title>
+<dc:description xml:lang="pt-br">162012</dc:description>
+<lb:fieldType>INTEIRO</lb:fieldType>
+<lb:fieldIndex>PORCAMPO | CHAVEUNICA</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#arq_original">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>arq_original</lb:fieldName>
+<dc:title xml:lang="pt-br">Nome original do arquivo</dc:title>
+<dc:description xml:lang="pt-br">Parecer_0016-2012.doc</dc:description>
+<lb:fieldType>ALFANUMERICO</lb:fieldType>
+<lb:fieldIndex>PORCAMPO</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#dt_publicacao">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>dt_publicacao</lb:fieldName>
+<dc:title xml:lang="pt-br">Data de Publicação do Parecer</dc:title>
+<dc:description xml:lang="pt-br"></dc:description>
+<lb:fieldType>DATA</lb:fieldType>
+<lb:fieldIndex>PORCAMPO</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#local_publicacao">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>local_publicacao</lb:fieldName>
+<dc:title xml:lang="pt-br">Local de Publicação do Parecer</dc:title>
+<dc:description xml:lang="pt-br"></dc:description>
+<lb:fieldType>ALFANUMERICO</lb:fieldType>
+<lb:fieldIndex>TEXTUAL</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#dt_revogacao">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>dt_revogacao</lb:fieldName>
+<dc:title xml:lang="pt-br">Data de Revogação do Parecer</dc:title>
+<dc:description xml:lang="pt-br"></dc:description>
+<lb:fieldType>DATA</lb:fieldType>
+<lb:fieldIndex>PORCAMPO</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#motivo_revogacao">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>motivo_revogacao</lb:fieldName>
+<dc:title xml:lang="pt-br">Motivo da Revogação do Parecer</dc:title>
+<dc:description xml:lang="pt-br"></dc:description>
+<lb:fieldType>ALFANUMERICO</lb:fieldType>
+<lb:fieldIndex>TEXTUAL</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#tp_revogador">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>tp_revogador</lb:fieldName>
+<dc:title xml:lang="pt-br">Tipo do Documento Revogador do Parecer</dc:title>
+<dc:description xml:lang="pt-br"></dc:description>
+<lb:fieldType>ALFANUMERICO</lb:fieldType>
+<lb:fieldIndex>PORCAMPO | TEXTUAL</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#n_revogador">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>n_revogador</lb:fieldName>
+<dc:title xml:lang="pt-br">Número do Documento Revogador</dc:title>
+<dc:description xml:lang="pt-br">0</dc:description>
+<lb:fieldType>INTEIRO</lb:fieldType>
+<lb:fieldIndex>PORCAMPO</lb:fieldIndex>
+</lb:field>
+<lb:field rdf:about="http://rdf.lightbase.cc/pareceres/PARECER/chave#inativo">
+<!-- Cada campo tem seus atributos -->
+<lb:fieldName>inativo</lb:fieldName>
+<dc:title xml:lang="pt-br">inativo</dc:title>
+<dc:description xml:lang="pt-br"></dc:description>
+<lb:fieldType>ALFANUMERICO</lb:fieldType>
+<lb:fieldIndex></lb:fieldIndex>
+</lb:field>
+</lb:fields>
+</lb:registro>
+</rdf:RDF>
+

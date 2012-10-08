@@ -2,4 +2,6 @@
         [ckan.plugins]
 	    datadaemon=ckanext.datadaemon.plugin:datadaemonPlugin
 
+        [paste.paster_command]
+        datadaemon = ckanext.datadaemon.commands.migrate:MigrationCommand
 	

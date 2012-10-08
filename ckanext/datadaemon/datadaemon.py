@@ -24,54 +24,41 @@ from datastore.client import *
 from ckanext.datadaemon.model import setup as setup_model
 from ckanext.datadaemon.model import DataRepository, ErrorRepository
 
+# Import ES Integration
+from ckanext.datadaemon import es
+
 log = getLogger(__name__)
 
-# FIXME: Maneira errada de carregar, mas a única que funcionou
-import ConfigParser
-config = ConfigParser.ConfigParser()
 
-# Find config file
-config_file = os.environ.get('CKAN_CONFIG')
-if not config_file:
-     config_file =  os.path.join(
-          os.path.dirname(os.path.abspath(__file__)), '../../../ckan/development.ini')
-
-config.read(config_file)
-
-from sqlalchemy import create_engine
-engine = create_engine(config.get('app:main','sqlalchemy.url'))
-model.metadata.bind = engine
-# Fim da segunda forma
-
-
-
-#class datadaemon(Daemon):
 class datadaemon:
     """ 
     Create a daemon to extract data from another Ckan instance
     """
-    # Basic configuration
-    
     def __init__(self):
         """
         Building method with standard parameters
         """
-        #self.package_id = 'b94fb472-59da-4c96-84dc-0919c0f3df36'
         self.package_name = 'pareceres'
-        self.repository = config.get('app:main','ckanext.datadaemon.repository')
-        self.files = None
+        self.repository = config.get('ckanext.datadaemon.repository')
+        self.file_url = None
+        self.es_instance = es.ESIntegration()
 
-    #def _load_config(self):
+    def load_ckanclient(self):
+        """
+        Loads a ckan client instance
+        
+        @returns a CkanClient instance
+        """
+        user = get_action('get_site_user')({'model': model, 'ignore_auth': True}, {})
+        api_url = urlparse.urljoin(config.get('ckan.site_url'), 'api')
+        ckan = ckanclient.CkanClient(
+          base_location=api_url,
+          api_key=user.get('apikey'),
+          is_verbose=True,
+        )
 
-    #    from paste.deploy import appconfig
-    #    from ckan.config.environment import load_environment
+        return ckan
 
-        #self.filename = os.path.abspath('/srv/ckan/py2env/src/ckan/development.ini')
-        #if not os.path.exists(self.filename):
-        #    raise AssertionError('Config filename %r does not exist.' % self.filename)
-        #fileConfig(self.filename)
-        #conf = appconfig('config:' + self.filename)
-        #load_environment(conf.global_conf, conf.local_conf)
 
     def log(self, message):
         """
@@ -79,9 +66,79 @@ class datadaemon:
         """
         from datetime import datetime
         import sys
+        import codecs
+
+        # Fix encoding of stdout and stderr
+        reload(sys)
+        sys.setdefaultencoding('utf-8')
+
+        print sys.getdefaultencoding()
+
+        sys.stdout = codecs.getwriter('utf8')(sys.stdout)
+        sys.stderr = codecs.getwriter('utf8')(sys.stderr)
+
         date = datetime.today()
         message = date.__str__() + ' : ' +  message
         print >> sys.stderr, message
+
+    def search_resource(self, identifier, dataset):
+        """
+        Search for an existing resource
+        """
+        # If some of this item fails, there's an error in file
+        # Cancel execution and log error
+        try:
+            resource = self.es_instance.get_document(identifier, dataset)
+        except:
+            #log.error('Error in file probably because base_name %s doesn\'t exists. Logging error\n%s' % (self.package_name, traceback.format_exc()))
+            errmsg = 'Error trying to find resource %s\n%s' % (dataset, traceback.format_exc())
+            resource = {}
+
+            # Regular log
+            self.log(errmsg)
+
+            # Generate error log information and store it
+            file_dict = {
+                            'tmpfile': self.send(metadata.get('url')),
+                            'filename': metadata.get('url'),
+                            'errmsg' : errmsg,
+                            'error_type' : 'DatasetNameError',
+                            'package_file' : self.response
+            }
+
+            self.log_error(file_dict)
+
+        return resource
+
+    def insert_resource(self, identifier, metadata, dataset, rdf_data=None):
+        """
+        Add data as a resource to Ckan and in Elastic Search
+        """
+        self.log('Storing resource %s in datastore' % (identifier))
+
+        # Make sure we don't have invalid chars on file name
+        # FIXME: put original file name in lb RDF namespace
+        arq_original, extension = os.path.splitext(metadata['arq_original'])
+        metadata['arq_original'] = self.normalize_name(arq_original) + extension
+
+        # Store the original file in repository creating a fixed URL
+        ckan = self.load_ckanclient()
+        metadata['url'] = self.store_file(ckan,metadata['url'],metadata['arq_original'])
+
+        # Convert data to Json format
+        #print('Inserindo dados %s' % json.dumps(metadata, ensure_ascii=False))
+        metadata['id'] = identifier
+
+        # Insert data 
+        response = self.es_instance.insert_document(
+          data=metadata,
+          dataset=dataset,
+          ckan=True,
+          rdf_data=rdf_data
+        )
+
+        self.log( 'Registro %s gravado com sucesso' % (identifier))
+
 
     def run(self):
         """
@@ -92,24 +149,22 @@ class datadaemon:
         # 1 - Baixar o arquivo com os dados
 
         # First we will need a file containing a list of files
-        self.log('Loading file list %s' % self.files)
+        self.log('Loading file list %s' % self.file_url)
 
         # Check if we are forcing some URL
-        if self.files is None:
-            #log.error('You have to supply the file list. \nFile list: %s' % self.files)
-            self.log( 'You have to supply the file list. \nFile list: %s' % self.files)
+        if self.file_url is None:
+            self.log( 'You have to supply the file list. \nFile list: %s' % self.file_url)
             return
 
-        for linha in self.files:
-            #log.warning('Loading file %s' % linha.rstrip())
-            self.log( 'Loading file %s' % linha.rstrip())
-            self.response = self.send(linha.rstrip())
-        
+        else:
+            self.log( 'Loading file %s' % self.file_url.rstrip())
+            self.response = self.send(self.file_url.rstrip())
+
             # Store the file and its hash somewhere
             exists = self.hash_control()
             if exists:
                 # if The hash exists, abort operation
-                continue
+                return
 
             # 2 - Fazer o parsing do arquivo e armazenar cada registro como um
             # recurso no Ckan em formato RDF. Os campos devem ser armazenados como
@@ -147,14 +202,11 @@ class datadaemon:
         filename, headers=urllib.urlretrieve(url)
 
         return filename
-        
+
     def datastore(self, package_name, identifier, data, metadata, format):
         """
         This method records the parsed data on database
         """
-        # Dados de configuracao para gravacao do registro
-        #self._load_config()
-
         # If we don't find the required field, just ignore it
         if metadata.get('grau_sigilo') is None:
             # If we don't find it, return
@@ -186,128 +238,23 @@ class datadaemon:
         # make sure this package exists
         self.package_name = self.normalize_name(package_name)
 
-        # Grava um registro de cada vez
-        #log.warning('Gravando registro %s no datastore' % (identifier))
-        self.log( 'Gravando registro %s no datastore' % (identifier))
-
-        # Get API user and website domain data
-        user = get_action('get_site_user')({'model': model, 'ignore_auth': True}, {})
-        ckan_url = config.get('app:main','ckan.site_url').rstrip('/')
-
-        # Elastic search URL
-        webstore_request_url = '%s/api/data/%s/%s' % (ckan_url, self.package_name, identifier)
-        client = DataStoreClient(webstore_request_url)
-
-        # Ckan client data and api URL
-        api_url = urlparse.urljoin(config.get('app:main','ckan.site_url'), 'api')
-        ckan = ckanclient.CkanClient(
-                                     base_location=api_url,
-                                     api_key=user.get('apikey'),
-                                     is_verbose=True,
-                                    )
-        
-        # If some of this item fails, there's an error in file
-        # Cancel execution and log error
-        hits = dict()
-        try:
-            # Search the string on elastic search
-            q = {
-                     "query": {
-                                "query_string": {
-                                                 "default_field" : "id",
-                                                 "query": identifier
-                                                 }
-                               }
-            }
-
-            package_entity = ckan.package_entity_get(self.package_name)
-            response = client.query(q)
-            hits = response['hits']
-        except:
-            #log.error('Error in file probably because base_name %s doesn\'t exists. Logging error\n%s' % (self.package_name, traceback.format_exc()))
-            errmsg = 'Error in file probably because base_name %s doesn\'t exists. Logging error\n%s' % (self.package_name, traceback.format_exc())
-            hits['total'] = 0
-
-            # Regular log
-            self.log(errmsg)
-
-            # Generate error log information and store it
-            file_dict = {
-                            'tmpfile': self.send(metadata.get('url')),
-                            'filename': metadata.get('url'),
-                            'errmsg' : errmsg,
-                            'error_type' : 'DatasetNameError',
-                            'package_file' : self.response
-            }
-
-            self.log_error(file_dict)
-
-            return
-
-        #response = client.query(q)
-
-        # Se o registro existe, apaga e insere de novo
-        if hits.get('total') > 0:
-            self.delete(identifier)
+        # If resource exists, remove it and isert it again
+        hits = self.search_resource(identifier=identifier, dataset=self.package_name)
+        if hits:
+            self.delete(identifier, self.package_name)
             # Now remove file from filesystem
-            for hits in hits.get("hits"):
-                elastic_data = hits["_source"]
+            elastic_data = hits
 
-                # Remove file if it exists
-                if elastic_data.get('url') is not None and elastic_data.get('url'):
-                    self.log('Removing file |%s|' % elastic_data.get('url'))
-                    result = util.delete_file(ckan,elastic_data.get('url'))
+            # Remove file if it exists
+            if elastic_data.get('url') is not None and elastic_data.get('url'):
+                self.log('Removing file |%s|' % elastic_data.get('url'))
+                ckan = self.load_ckanclient()
+                result = util.delete_file(ckan,elastic_data.get('url'))
 
-        # Make sure we don't have invalid chars on file name
-        # FIXME: put original file name in lb RDF namespace
-        arq_original, extension = os.path.splitext(metadata['arq_original'])
-        metadata['arq_original'] = self.normalize_name(arq_original) + extension
+        # Now insert resource
+        resource = self.insert_resource(identifier=identifier, metadata=metadata, rdf_data=data, dataset=package_name)
 
-        # Store the original file in repository creating a fixed URL
-        metadata['url'] = self.store_file(ckan,metadata['url'],metadata['arq_original'])
-
-        # Convert data to Json format
-        #print('Inserindo dados %s' % json.dumps(metadata, ensure_ascii=False))
-        metadata['id'] = identifier
-        post_data = json.dumps(metadata, ensure_ascii=False)
-        headers = dict()
-        headers['Authorization'] = user.get('apikey')
-        #req = urllib2.Request(webstore_request_url, post_data, headers)
-        client._headers = headers
-        list_data = list()
-        list_data.append(post_data)
-
-        # Insert data on Elastic Search
-        self.response = client.upsert(list_data)
-        
-        # This data must be set somehow
-        #package_name = self.package_id
-        package_name = self.package_name
-
-        # Insert on Ckan RDF data as extra attribute
-        metadata['rdf_collection'] = data
-
-        # Describe  
-        resource_entity = { 
-                           'name' : identifier,
-                           'url' : metadata['url'],
-                           'format' : format,
-                           'extras' : metadata
-        }
-        
-        #package_entity = ckan.package_entity_get(package_name)
-        
-        # Add resource as an element for package. It's the only way to save
-        package_entity['resources'].append(resource_entity)
-        
-        # This will update the package in package_entity
-        ckan.package_entity_put(package_entity)
-        
-        #print('Request result: %s' % self.response)
-        #log.warning('Registro %s gravado com sucesso' % (identifier))
-        self.log( 'Registro %s gravado com sucesso' % (identifier))
-        
-    def delete(self,identifier):
+    def delete(self, identifier, dataset):
         """
         Remove resource from datastore
         """
@@ -315,73 +262,11 @@ class datadaemon:
         identifier = str(identifier)
 
         #self._load_config()
-        self.log( 'Removing resource %s' % identifier)
+        self.log( 'Removing resource %s in dataset %s' % (identifier, dataset))
 
-        # Authenticate and remove resource from system 
-        user = get_action('get_site_user')({'model': model, 'ignore_auth': True}, {})
-        api_url = urlparse.urljoin(config.get('app:main','ckan.site_url'), 'api')
+        # Remove it
+        data = self.es_instance.delete_document(identifier, dataset)
 
-        ckan = ckanclient.CkanClient(
-                                     base_location=api_url,
-                                     api_key=user.get('apikey'),
-                                     is_verbose=True,
-                                    )
-        
-        # This data must be set somehow
-        #package_name = self.package_id
-        #package_name = self.package_name
-        package_entity = ckan.package_entity_get(self.package_name)
-
-        # FIXME: The only way is to loop through resources list
-        # It's incredibly slow. Have to fix it
-
-        resources_list = list()
-        for resource in package_entity['resources']:
-            if resource['name'] != identifier:
-                # On this case add this resource to the list
-                resources_list.append(resource)
-
-
-        # Add resource as an element for package. It's the only way to save
-        package_entity['resources'] = resources_list
-        
-        # This will update the package in package_entity
-        ckan.package_entity_put(package_entity)
-        
-        # Remove um registro de cada vez
-        #log.warning('Removendo registro %s do datastore' % (identifier))
-        self.log( 'Removendo registro %s do datastore' % (identifier))
-        
-        ckan_url = config.get('app:main','ckan.site_url').rstrip('/')
-        url = '%s/api/data/%s/%s' % (ckan_url, self.package_name, identifier)
-        client = DataStoreClient(url)
-        out = client.delete()
-        data = json.loads(out)
-
-        # Now remove resource from Ckan DB
-        session = model.Session
-        
-        # First remove revisions
-        revision_query = session.query(model.ResourceRevision)\
-            .filter(model.ResourceRevision.name == identifier).all()
-
-        for revision_obj in revision_query:
-            session.delete(revision_obj)
-
-        # We have to commit it before remove resource itself
-        session.commit()
-
-        # Now remove resources
-        resource_query = session.query(model.Resource)\
-            .filter(model.Resource.name == identifier)
-
-        resource_obj = resource_query.first()
-        session.delete(resource_obj)
-
-        # Now we can safelly remove resource
-        session.commit()
-
-        #log.warning('Registro %s removido com sucesso' % identifier)
         self.log( 'Registro %s removido com sucesso' % identifier)
 
         return data
@@ -506,8 +391,6 @@ class datadaemon:
         results = session.query(ErrorRepository.hash).filter_by(hash=h.hexdigest()).all()
 
         if len(results) > 0:
-            #log.error('This file %s has the same hash of a file already in\
-            #    database. Aborting' % file_dict['filename'])
             self.log( 'This file %s has the same hash of a file already in\
                 database. Aborting' % file_dict['filename'])
             os.remove(file_dict['tmpfile'])
